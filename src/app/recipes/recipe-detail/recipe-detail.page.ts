@@ -32,7 +32,6 @@ export class RecipeDetailPage implements OnInit {
       const recipeId = paramMap.get('recipeId');
       // gets the recipe by id through service
       this.loadedRecipe = this.recipesService.getRecipe(recipeId);
-      console.log(this.loadedRecipe);
     });
   }
 
