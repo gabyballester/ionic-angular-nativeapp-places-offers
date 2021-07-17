@@ -1,5 +1,7 @@
 {
-  "name": "ionic-angular-mobile",
-  "integrations": {},
+  "name": "ionicAngularMobile",
+  "integrations": {
+    "capacitor": {}
+  },
   "type": "angular"
 }
