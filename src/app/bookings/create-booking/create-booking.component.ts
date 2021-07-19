@@ -13,7 +13,7 @@ export class CreateBookingComponent implements OnInit {
   constructor(private modalCtrl: ModalController) { }
 
   ngOnInit() {
-    console.log(this.selectedPlace);
+    // console.log(this.selectedPlace);
   }
 
   onCancel() {
