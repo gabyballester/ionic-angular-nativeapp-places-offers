@@ -236,4 +236,12 @@
 
     --ion-card-background: #1e1e1e;
   }
+  ion-toolbar {
+  ion-button,
+  ion-back-button,
+  ion-menu-button,
+  .sc-ion-back-button-ios-h {
+    --color: white;
+  }
+}
 }
