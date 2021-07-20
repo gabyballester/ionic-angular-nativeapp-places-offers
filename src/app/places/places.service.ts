@@ -12,8 +12,9 @@ export class PlacesService {
       'Amazing place in NYC',
       'https://th.bing.com/th/id/OIP.j1Jkxt2N-ha7_cX1ZYMMXwHaFT?w=258&h=184&c=7&o=5&dpr=1.05&pid=1.7',
       149.99,
-      new Date(2021-7-1),
-      new Date(2021-7-15)
+      new Date(2021 - 7 - 1),
+      new Date(2021 - 7 - 15),
+      'abc'
     ),
     new Place(
       'p2',
@@ -21,8 +22,9 @@ export class PlacesService {
       'Romantic place in Paris',
       'https://th.bing.com/th/id/OIP.PUGB36ymHAs8TbCVGwWiHAHaE8?w=216&h=180&c=7&o=5&dpr=1.05&pid=1.7',
       189.99,
-      new Date(2021-7-1),
-      new Date(2021-7-15)
+      new Date(2021 - 7 - 1),
+      new Date(2021 - 7 - 15),
+      'abc'
     ),
     new Place(
       'p3',
@@ -30,8 +32,9 @@ export class PlacesService {
       'Not your average city trip!',
       'https://th.bing.com/th/id/OIP.sgOr8l5M1xkcNrlJ_XhWgwHaFj?w=260&h=195&c=7&o=5&dpr=1.05&pid=1.7',
       99.99,
-      new Date(2021-7-1),
-      new Date(2021-7-15)
+      new Date(2021 - 7 - 1),
+      new Date(2021 - 7 - 15),
+      'abc'
     ),
   ];
 
@@ -42,6 +45,6 @@ export class PlacesService {
   constructor() {}
 
   getPlace(id: string) {
-    return {...this._places.find(p => p.id === id)};
+    return { ...this._places.find((p) => p.id === id) };
   }
 }
