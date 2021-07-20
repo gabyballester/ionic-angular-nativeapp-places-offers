@@ -1,50 +1,80 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
+import { AuthService } from '../auth/auth.service';
 import { Place } from './place.model';
+import { take, map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PlacesService {
-  private _places: Place[] = [
+  private _places = new BehaviorSubject<Place[]>([
     new Place(
       'p1',
-      'Manhattan mansion',
-      'Amazing place in NYC',
-      'https://th.bing.com/th/id/OIP.j1Jkxt2N-ha7_cX1ZYMMXwHaFT?w=258&h=184&c=7&o=5&dpr=1.05&pid=1.7',
+      'Manhattan Mansion',
+      'In the heart of New York City.',
+      'https://lonelyplanetimages.imgix.net/mastheads/GettyImages-538096543_medium.jpg?sharp=10&vib=20&w=1200',
       149.99,
-      new Date(2021 - 7 - 1),
-      new Date(2021 - 7 - 15),
+      new Date('2019-01-01'),
+      new Date('2019-12-31'),
       'abc'
     ),
     new Place(
       'p2',
-      "L'Amour TouJours",
-      'Romantic place in Paris',
-      'https://th.bing.com/th/id/OIP.PUGB36ymHAs8TbCVGwWiHAHaE8?w=216&h=180&c=7&o=5&dpr=1.05&pid=1.7',
+      "L'Amour Toujours",
+      'A romantic place in Paris!',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Paris_Night.jpg/1024px-Paris_Night.jpg',
       189.99,
-      new Date(2021 - 7 - 1),
-      new Date(2021 - 7 - 15),
+      new Date('2019-01-01'),
+      new Date('2019-12-31'),
       'abc'
     ),
     new Place(
       'p3',
       'The Foggy Palace',
       'Not your average city trip!',
-      'https://th.bing.com/th/id/OIP.sgOr8l5M1xkcNrlJ_XhWgwHaFj?w=260&h=195&c=7&o=5&dpr=1.05&pid=1.7',
+      'https://upload.wikimedia.org/wikipedia/commons/0/01/San_Francisco_with_two_bridges_and_the_fog.jpg',
       99.99,
-      new Date(2021 - 7 - 1),
-      new Date(2021 - 7 - 15),
+      new Date('2019-01-01'),
+      new Date('2019-12-31'),
       'abc'
     ),
-  ];
+  ]);
 
   get places() {
-    return [...this._places];
+    return this._places.asObservable();
   }
 
-  constructor() {}
+  constructor(private authService: AuthService) {}
 
   getPlace(id: string) {
-    return { ...this._places.find((p) => p.id === id) };
+    return this.places.pipe(
+      take(1),
+      map((places) => {
+        return { ...places.find((p) => p.id === id) };
+      })
+    );
+  }
+
+  addPlace(
+    title: string,
+    description: string,
+    price: number,
+    dateFrom: Date,
+    dateTo: Date
+  ) {
+    const newPlace = new Place(
+      Math.random().toString(),
+      title,
+      description,
+      'https://lonelyplanetimages.imgix.net/mastheads/GettyImages-538096543_medium.jpg?sharp=10&vib=20&w=1200',
+      price,
+      dateFrom,
+      dateTo,
+      this.authService.userId
+    );
+    this.places.pipe(take(1)).subscribe((places) => {
+      this._places.next(places.concat(newPlace));
+    });
   }
 }
